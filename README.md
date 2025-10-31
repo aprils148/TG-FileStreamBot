@@ -265,6 +265,42 @@ The easiest way to generate a session string is by running
 
 This will generate a session string for your user account using QR code authentication. Authentication via phone number is not supported yet and will be added in the future.
 
+## API Documentation
+
+### Get File Download Link
+
+Get file information and download link for a Telegram message.
+
+**Endpoint:** `/api/link/:messageID`  
+**Method:** `GET`  
+**Parameters:**
+- `messageID` (path parameter) - Telegram message ID
+
+**Example Request:**
+```bash
+curl http://localhost:8080/api/link/123456
+```
+
+**Success Response (200 OK):**
+```json
+{
+  "ok": true,
+  "message_id": 123456,
+  "file_name": "example.pdf",
+  "file_size": 1048576,
+  "mime_type": "application/pdf",
+  "download_link": "http://localhost:8080/stream/123456?hash=abc123"
+}
+```
+
+**Error Response (400 Bad Request):**
+```json
+{
+  "ok": false,
+  "error": "Failed to get file information: this file was deleted"
+}
+```
+
 ## Contributing
 
 Feel free to contribute to this project if you have any further ideas
